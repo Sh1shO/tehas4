@@ -2,7 +2,6 @@ from sqlalchemy import Column, String, Integer, Date, Boolean, ForeignKey, Text,
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker
 
-
 # Настройка базы данных
 DATABASE_URL = 'postgresql://postgres:1234@localhost:5432/employee_managment'
 engine = create_engine(DATABASE_URL)
@@ -20,8 +19,6 @@ class TrainingPlace(Base):
     id = Column(Integer, primary_key = True, autoincrement = True)
     full_name = Column(String(255), nullable = False)
     short_name = Column(String(255), nullable = False)
-    is_deleted = Column(Boolean, default=False)
-
 
 # Таблица "Квалификация"
 class Qualification(Base):
@@ -29,7 +26,6 @@ class Qualification(Base):
     id = Column(Integer, primary_key = True, autoincrement = True)
     name_qualification = Column(String(255), nullable = False)
     description = Column(Text)
-    is_deleted = Column(Boolean, default=False)
 
 # Таблица "Специальность"
 class Specialty(Base):
@@ -37,7 +33,6 @@ class Specialty(Base):
     id = Column(Integer, primary_key = True, autoincrement = True)
     full_name_specialty = Column(String(255), nullable = False)
     short_name_specialty = Column(String(255), nullable = False)
-    is_deleted = Column(Boolean, default=False)
     qualification_id = Column(Integer, ForeignKey("qualification.id"), nullable = False)
     r_qualification = relationship("Qualification")
 
@@ -49,7 +44,6 @@ class DocumentEmployee(Base):
     number_document = Column(Integer, nullable = False)
     issue_date = Column(Integer, nullable = False)
     issue_by = Column(Text, nullable = False)
-    is_deleted = Column(Boolean, default=False)
 
 # Таблица "Образование"
 class Education(Base):
@@ -60,17 +54,15 @@ class Education(Base):
     number_education = Column(Integer, nullable = False)
     registration_number = Column(String(255))
     issue_date = Column(Date, nullable = False)
-    is_deleted = Column(Boolean, default=False)
     specialty_id = Column(Integer, ForeignKey("specialty.id"), nullable = False)
     r_specialty = relationship("Specialty")
 
 # Таблица "Должность"
-class PositionEmployee(Base):
-    __tablename__ = "position_employee"
+class Position(Base):
+    __tablename__ = "position"
     id = Column(Integer, primary_key = True, autoincrement = True)
     name_position = Column(String(255), nullable = False)
     responsibilities = Column(Text)
-    is_deleted = Column(Boolean, default=False)
 
 # Таблица "Сотрудник"
 class Employee(Base):
@@ -94,11 +86,10 @@ class Employee(Base):
 class EmployeePosition(Base):
     __tablename__ = "employee_position"
     id = Column(Integer, primary_key = True, autoincrement = True)
-    position_id = Column(Integer, ForeignKey("position_employee.id"), nullable = False)
+    position_id = Column(Integer, ForeignKey("position.id"), nullable = False)
     employee_id = Column(Integer, ForeignKey("employee.id"), nullable = False)
     department = Column(Enum('HR', 'IT', 'Finance', name = 'department'))
-    is_deleted = Column(Boolean, default=False)
-    r_position = relationship("PositionEmployee")
+    r_position = relationship("Position")
     r_employee = relationship("Employee")
     
 # Таблица "Обучение"
@@ -111,7 +102,6 @@ class Training(Base):
     end_date = Column(Date, nullable = False)
     format_training = Column(Boolean, nullable = False)
     training_place_id = Column(Integer, ForeignKey("training_place.id"), nullable = False)
-    is_deleted = Column(Boolean, default=False)
     r_training_place = relationship("TrainingPlace")
 
 # Таблица "Обучение сотрудника"
@@ -122,7 +112,6 @@ class EmployeeTraining(Base):
     employee_id = Column(Integer, ForeignKey("employee.id"), nullable = False)
     completed = Column(Boolean, nullable = False)
     document_path = Column(String(255))
-    is_deleted = Column(Boolean, default=False)
     r_training = relationship("Training")
     r_employee = relationship("Employee")
 
@@ -132,11 +121,9 @@ class EmployeeEducation (Base):
     id = Column(Integer, primary_key = True, autoincrement = True)
     employee_id = Column(Integer, ForeignKey("employee.id"), nullable = False)
     education_id = Column(Integer, ForeignKey("education.id"), nullable = False)
-    is_deleted = Column(Boolean, default=False)
     r_employee = relationship("Employee")
     r_education = relationship("Education")
     
 def get_session():
    """Возвращаем сессию для работы с базой данных"""
    return session
-

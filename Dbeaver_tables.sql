@@ -72,7 +72,7 @@ create table employee_position (
 	id serial primary key,
 	position_id int not null,
 	employee_id int not null,
-	department varchar(255) check (department in ('IT', 'HR', 'Finance', 'Marketing', 'QA', 'Development', 'Sales', 'Support', 'Research', 'Logistics', 'Operations', 'HR', 'Finance', 'Marketing', 'QA', 'Development', 'Sales', 'Support', 'Research', 'Logistics')),
+	department varchar(255) check (department in ('IT', 'HR', 'Finance', 'Marketing', 'QA', 'Development', 'Sales', 'Support', 'Research', 'Logistics', 'Operations', 'Designer', 'Graphics Designer', 'Moution Designer', '3D designer', 'Web Designer', 'UX designer', 'UI designer', 'Java Programmer', 'CSS Programer')),
 	constraint fk_position foreign key (position_id) references position(id),
 	constraint fk_employee foreign key (employee_id) references employee(id)
 );

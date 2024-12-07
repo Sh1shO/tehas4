@@ -89,7 +89,7 @@ class EmployeePosition(Base):
     id = Column(Integer, primary_key = True, autoincrement = True)
     position_id = Column(Integer, ForeignKey("position.id"), nullable = False)
     employee_id = Column(Integer, ForeignKey("employee.id"), nullable = False)
-    department = Column(Enum('IT', 'HR', 'Finance', 'Marketing', 'QA', 'Development', 'Sales', 'Support', 'Research', 'Logistics', 'Operations', 'HR', 'Finance', 'Marketing', 'QA', 'Development', 'Sales', 'Support', 'Research', 'Logistics', name = 'department'))
+    department = Column(Enum('IT', 'HR', 'Finance', 'Marketing', 'QA', 'Development', 'Sales', 'Support', 'Research', 'Logistics', 'Operations', 'Designer', 'Graphics Designer', 'Moution Designer', '3D designer', 'Web Designer', 'UX designer', 'UI designer', 'Java Programmer', 'CSS Programer', name = 'department'))
     r_position = relationship("Position")
     r_employee = relationship("Employee")
     

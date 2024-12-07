@@ -89,7 +89,7 @@ class EmployeePosition(Base):
     id = Column(Integer, primary_key = True, autoincrement = True)
     position_id = Column(Integer, ForeignKey("position.id"), nullable = False)
     employee_id = Column(Integer, ForeignKey("employee.id"), nullable = False)
-    department = Column(Enum('HR', 'IT', 'Finance', name = 'department'))
+    department = Column(Enum('IT', 'HR', 'Finance', 'Marketing', 'QA', 'Development', 'Sales', 'Support', 'Research', 'Logistics', 'Operations', 'HR', 'Finance', 'Marketing', 'QA', 'Development', 'Sales', 'Support', 'Research', 'Logistics', name = 'department'))
     r_position = relationship("Position")
     r_employee = relationship("Employee")
     
@@ -98,7 +98,7 @@ class Training(Base):
     __tablename__ = "training"
     id = Column(Integer, primary_key = True, autoincrement = True)
     name_training = Column(String(255), nullable = False)
-    type_training = Column(String(Enum('Online', 'Offline', 'Hybrid', name = 'training_type_enum')), nullable = False)
+    type_training = Column(String(Enum('Python Programming', 'Project Management Workshop', 'Advanced Data Science', 'Team Leadership', 'Business Analysis', 'Machine Learning', 'Web Development', 'Agile Methodologies', 'Database Optimization', 'Cybersecurity Basics', 'Network Administration', 'Digital Marketing', 'IT Infrastructure', 'Cloud Computing', 'Data Visualization', 'Strategic Planning', 'Big Data Processing', 'Artificial Intelligence', 'Customer Relations', 'Product Management', name = 'training_type_enum')), nullable = False)
     start_date = Column(Date, nullable = False)
     end_date = Column(Date, nullable = False)
     format_training = Column(Boolean, nullable = False)

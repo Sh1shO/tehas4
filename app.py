@@ -1,6 +1,6 @@
 from PySide6.QtWidgets import QApplication, QMessageBox, QWidget, QVBoxLayout, QPushButton, QTableWidget, QTableWidgetItem, QHBoxLayout, QDialog, QFormLayout, QLineEdit, QComboBox, QDateEdit, QDialogButtonBox
 from PySide6.QtCore import Qt, QDate
-from db import get_session, Employee, TrainingPlace, PositionEmployee, Specialty, Education, EmployeeEducation, EmployeePosition, Training, EmployeeTraining
+from db import get_session, Employee, TrainingPlace, Position, Specialty, Education, EmployeeEducation, EmployeePosition, Training, EmployeeTraining
 from PySide6.QtCore import QDate
 from fpdf import FPDF
 import os
@@ -160,7 +160,6 @@ class EmployeeListWindow(QWidget):
         dialog = AddEmployeeDialog(self)
         if dialog.exec() == QDialog.Accepted:
             self.load_employees()  # Обновляем таблицу после добавления сотрудника
-
     
     def show_message(self, title, message, icon=QMessageBox.Information):
         """Отображает всплывающее сообщение."""
@@ -358,7 +357,7 @@ class AddEmployeeDialog(QDialog):
 
         # Заполняем комбобоксы должностей и отделов
         session = get_session()
-        positions = session.query(PositionEmployee).all()  # Используем Position вместо position
+        positions = session.query(Position).all()
         for position in positions:
             self.position_combo.addItem(position.name_position, position.id)  # Получаем должность
 
@@ -420,9 +419,6 @@ class AddEmployeeDialog(QDialog):
         session.commit()
         session.close()
         self.accept()
-
-
-
 
 class EditEmployeeDialog(QDialog):
     def __init__(self, employee_id, parent=None):
@@ -512,9 +508,6 @@ class EditEmployeeDialog(QDialog):
         session.commit()
         session.close()
         self.accept()
-
-    
-
 
 if __name__ == "__main__":
     app = QApplication([])

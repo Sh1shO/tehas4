@@ -236,7 +236,9 @@ class EmployeeListWindow(QWidget):
 
             print(f"Отчет был успешно экспортирован в {pdf_output_path}")
             session.close()
-
+            
+            QMessageBox.information(self, "Успех", f"Отчет был успешно экспортирован в:\n{pdf_output_path}")
+        
         except Exception as e:
             print(f"Произошла ошибка при создании отчета: {str(e)}")
             QMessageBox.critical(self, "Ошибка", f"Произошла ошибка при создании отчета: {str(e)}")
@@ -259,7 +261,7 @@ class EmployeeListWindow(QWidget):
 
                 # Заголовок карточки сотрудника
                 pdf.set_font('FreeSans', '', 16)
-                pdf.cell(200, 10, f"Карточка сотрудника: {employee.last_name} {employee.first_name}", ln=True, align='C')
+                pdf.cell(200, 10, f"Карточка сотрудника: {employee.last_name} {employee.first_name} {employee.surname}", ln=True, align='C')
                 pdf.ln(10)
 
                 # Базовая информация о сотруднике
@@ -315,6 +317,8 @@ class EmployeeListWindow(QWidget):
 
             print(f"Карточки сотрудников были успешно экспортированы в {pdf_output_path}.")
             session.close()
+
+            QMessageBox.information(self, "Успех", f"Отчет был успешно экспортирован в:\n{pdf_output_path}")
 
         except Exception as e:
             print(f"Произошла ошибка при создании карточки сотрудника: {str(e)}")

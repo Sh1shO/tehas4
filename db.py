@@ -2,6 +2,7 @@ from sqlalchemy import Column, String, Integer, Date, Boolean, ForeignKey, Text,
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker
 
+
 # Настройка базы данных
 DATABASE_URL = 'postgresql://postgres:1234@localhost:5432/employee_managment'
 engine = create_engine(DATABASE_URL)

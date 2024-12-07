@@ -2,14 +2,14 @@
 create table training_place (
 	id serial primary key,
 	full_name varchar(255) not null,
-	short_name varchar(255) not null,
+	short_name varchar(255) not null
 );
 
 -- Создание таблицы квалификаций
 create table qualification (
 	id serial primary key,
 	name_qualification varchar(255) not null,
-	description text,
+	description text
 );
 
 -- Создание таблицы специальностей
@@ -18,7 +18,7 @@ create table specialty (
 	full_name_specialty varchar(255) not null,
 	short_name_specialty varchar(255) not null,
 	qualification_id int not null,
-	constraint fk_qualification foreign key (qualification_id) references qualification(id),
+	constraint fk_qualification foreign key (qualification_id) references qualification(id)
 );
 
 -- Создание таблицы документов
@@ -27,7 +27,7 @@ create table document_employee (
 	series int not null,
 	number_document int not null,
 	issue_date date not null,
-	issued_by text not null,
+	issued_by text not null
 );
 
 -- Создание таблицы образования
@@ -39,14 +39,14 @@ create table education (
 	registration_number varchar(255),
 	issue_date date not null,
 	specialty_id int not null,
-	constraint fk_specialty foreign key (specialty_id) references specialty(id),
+	constraint fk_specialty foreign key (specialty_id) references specialty(id)
 );
 
 -- Создание таблицы должностей
-create table position_employee (
+create table position (
 	id serial primary key,
 	name_position varchar(255) not null,
-	responsibilities text,
+	responsibilities text
 );
 
 -- Создание таблицы сотрудников
@@ -64,7 +64,7 @@ create table employee (
 	material_status boolean,
 	hire_date date not null,
 	dismissal_date date,
-	is_deleted boolean default false  -- Добавлено поле для пометки на удаление
+	is_deleted boolean default false 
 );
 
 -- Создание таблицы должностей сотрудников (связующая таблица)
@@ -73,8 +73,8 @@ create table employee_position (
 	position_id int not null,
 	employee_id int not null,
 	department varchar(255) check (department in ('HR', 'IT', 'Finance')),
-	constraint fk_position_employee foreign key (position_id) references position_employee(id),
-	constraint fk_employee foreign key (employee_id) references employee(id),
+	constraint fk_position foreign key (position_id) references position(id),
+	constraint fk_employee foreign key (employee_id) references employee(id)
 );
 
 -- Создание таблицы обучения
@@ -86,7 +86,7 @@ create table training (
 	end_date date not null,
 	format_training boolean not null,
 	training_place_id int not null,
-	constraint fk_training_place foreign key (training_place_id) references training_place(id),
+	constraint fk_training_place foreign key (training_place_id) references training_place(id)
 );
 
 -- Создание таблицы обучения сотрудников (связующая таблица)
@@ -97,7 +97,7 @@ create table employee_training (
 	completed boolean not null,
 	document_path varchar(255),
 	constraint fk_training foreign key (training_id) references training(id),
-	constraint fk_employee_training foreign key (employee_id) references employee(id),
+	constraint fk_employee_training foreign key (employee_id) references employee(id)
 );
 
 -- Создание таблицы образования сотрудников (связующая таблица)
@@ -106,5 +106,5 @@ create table employee_education (
 	employee_id int not null,
 	education_id int not null,
 	constraint fk_employee_id foreign key (employee_id) references employee(id),
-	constraint fk_education_id foreign key (education_id) references education(id),
+	constraint fk_education_id foreign key (education_id) references education(id)
 );

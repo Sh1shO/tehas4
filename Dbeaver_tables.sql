@@ -72,7 +72,7 @@ create table employee_position (
 	id serial primary key,
 	position_id int not null,
 	employee_id int not null,
-	department varchar(255) check (department in ('HR', 'IT', 'Finance')),
+	department varchar(255) check (department in ('IT', 'HR', 'Finance', 'Marketing', 'QA', 'Development', 'Sales', 'Support', 'Research', 'Logistics', 'Operations', 'HR', 'Finance', 'Marketing', 'QA', 'Development', 'Sales', 'Support', 'Research', 'Logistics')),
 	constraint fk_position foreign key (position_id) references position(id),
 	constraint fk_employee foreign key (employee_id) references employee(id)
 );
@@ -81,7 +81,7 @@ create table employee_position (
 create table training (
 	id serial primary key,
 	name_training varchar(255) not null,
-	type_training varchar(255) check (type_training in ('Online', 'Offline', 'Hybrid')) not null,
+	type_training varchar(255) check (type_training in ('Python Programming', 'Project Management Workshop', 'Advanced Data Science', 'Team Leadership', 'Business Analysis', 'Machine Learning', 'Web Development', 'Agile Methodologies', 'Database Optimization', 'Cybersecurity Basics', 'Network Administration', 'Digital Marketing', 'IT Infrastructure', 'Cloud Computing', 'Data Visualization', 'Strategic Planning', 'Big Data Processing', 'Artificial Intelligence', 'Customer Relations', 'Product Management')) not null,
 	start_date date not null,
 	end_date date not null,
 	format_training boolean not null,
